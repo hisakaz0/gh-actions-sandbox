@@ -1,0 +1,32 @@
+name: Alert when default milestone
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  loging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: logging event
+        run: |
+          echo ${{ toJson(github.event) }}
+          echo ${{ github.event.pull_request.user.login }}
+          echo ${{ github.event.pull_request.merged }}
+          echo ${{ github.event.pull_request.milestone.id }}
+          echo ${{ github.event.pull_request.base.ref }}
+
+  check-branch:
+    # mergedイベント && masterへのマージ && milestoneが0.0.0 
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.milestone.id == 156 && contains(github.event.pull_request.base.ref, 'master') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: comment pr
+        run: |
+          cat << EOF > ./comments
+            @${{ github.event.pull_request.user.login }}
+            hogehoge
+          EOF
+          gh pr comment -F ./comments ${{ github.event.pull_request.html_url }}
+
