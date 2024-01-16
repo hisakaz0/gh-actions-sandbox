@@ -7,15 +7,12 @@ on:
 
 jobs:
   loging:
+    if: ${{ false }} # for debug 
     runs-on: ubuntu-latest
     steps:
       - name: logging event
         run: |
           echo "${{ toJson(github.event) }}"
-          echo "${{ github.event.pull_request.user.login }}"
-          echo "${{ github.event.pull_request.merged }}"
-          echo "${{ github.event.pull_request.milestone.id }}"
-          echo "${{ github.event.pull_request.base.ref }}"
 
   check-branch:
     # mergedイベント && masterへのマージ && milestoneが0.0.0 
