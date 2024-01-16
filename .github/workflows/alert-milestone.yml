@@ -20,7 +20,7 @@ jobs:
     if: ${{ github.event.pull_request.merged == true && github.event.pull_request.milestone.number == 1 && contains(github.event.pull_request.base.ref, 'main') }}
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ github.token }} # for gh CLI
+      GH_TOKEN: ${{ secrets.GH_TOKEN_EXT }} # for gh CLI
     steps:
       - name: comment pr
         run: |
