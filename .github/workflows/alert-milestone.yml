@@ -19,7 +19,7 @@ jobs:
 
   check-branch:
     # mergedイベント && masterへのマージ && milestoneが0.0.0 
-    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.milestone.id == 156 && contains(github.event.pull_request.base.ref, 'master') }}
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.milestone.id == 1 && contains(github.event.pull_request.base.ref, 'master') }}
     runs-on: ubuntu-latest
     steps:
       - name: comment pr
